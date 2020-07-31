@@ -14,6 +14,12 @@
     --download-icon-url: url('../images/download.svg');
 }
 
+/* Font stack */
+:root {
+    --font-stack: Baskerville, "Baskerville Old Face", "Hoefler Text",
+                  Garamond, "Times New Roman", serif;
+}
+
 @media(prefers-color-scheme: dark) {
     :root {
         --base-primary-color: #333;
@@ -328,6 +334,15 @@ footer {
 @media(min-width: 960px) {
     input.toggler { display: none; }
     .menu-wrap .hamburger { display: none !important; }
+    body {
+        min-height: 100vh;
+        grid-template-rows: auto 2rem;
+    }
+
+    footer {
+        height: unset;
+        padding: 0 0.2rem;
+    }
 
     .menu-wrap .menu {
         visibility: visible;

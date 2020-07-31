@@ -7,7 +7,7 @@
 #
 # CREATED:          07/18/2020
 #
-# LAST EDITED:      07/26/2020
+# LAST EDITED:      07/31/2020
 ###
 
 import os
@@ -99,7 +99,7 @@ def getNavigation(titles, book=''):
             navigation += '          </ul>\n'
 
     if book:
-        navigation += BOOK_LINK.format(book)
+        navigation += BOOK_LINK.format('/' + book)
     return navigation + NAV_EPILOGUE
 
 def main():

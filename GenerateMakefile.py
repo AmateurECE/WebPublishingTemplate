@@ -7,7 +7,7 @@
 #
 # CREATED:          07/18/2020
 #
-# LAST EDITED:      07/29/2020
+# LAST EDITED:      07/31/2020
 ###
 
 from os import walk, path
@@ -47,15 +47,10 @@ build: $(pdfFiles) $(erbFiles) {}
 
 DEPLOY_RULE = """
 host=edtwardy@192.168.1.60
-remotePath=/var/www/edtwardy.hopto.org/
-location=THE_LOCATION
+remotePath=/var/www/edtwardy.hopto.org/THE_LOCATION/
 deploy: build
-	@mv build $(location)
-	@mv pdf $(location)
-	-rsync -r -e 'ssh -p 5000' --delete $(location) \\
+	rsync -r -e 'ssh -p 5000' --delete build/ pdf \\
 		"$(host):$(remotePath)"
-	@mv $(location)/pdf .
-	@mv $(location) build
 """
 
 CLEAN_RULE = """
@@ -137,6 +132,8 @@ def getPageData(filename):
 
 def verifyBookMain(bookMain, latexFiles):
     """Verifies that the bookMain file contains all other latexFiles."""
+    if not bookMain:
+        return []
     with open(bookMain, 'r') as bookMainFile:
         bookText = ''.join(bookMainFile.readlines())
         unincludedFilenames = []

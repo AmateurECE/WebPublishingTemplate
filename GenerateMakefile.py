@@ -7,7 +7,7 @@
 #
 # CREATED:          07/18/2020
 #
-# LAST EDITED:      07/31/2020
+# LAST EDITED:      08/05/2020
 ###
 
 from os import walk, path
@@ -18,6 +18,7 @@ INDEX = 'index.tex'
 BOOK_MAIN = ''
 BOOK_EXCLUDE = []
 BOOK_OUTPUT = ''
+BUILD_EXCLUDE = []
 
 try:
     import makefile_config
@@ -31,6 +32,8 @@ try:
         BOOK_EXCLUDE = makefile_config.BOOK_EXCLUDE
     if 'BOOK_OUTPUT' in makefile_config.__dict__:
         BOOK_OUTPUT = makefile_config.BOOK_OUTPUT
+    if 'BUILD_EXCLUDE' in makefile_config.__dict__:
+        BUILD_EXCLUDE = makefile_config.BUILD_EXCLUDE
 except ImportError:
     pass
 
@@ -89,13 +92,16 @@ def warn(message):
     noColor = '\033[0m'
     print(f'[GenerateMakefile.py] {warning}Warning{noColor}: {message}')
 
-def getLatexFiles():
+def getLatexFiles(bookMain, buildExclude):
     """Locates LaTeX files in the subtree of the current directory"""
     latexFiles = []
     for dirpath, dirnames, filenames in walk('.'):
         for filename in filenames:
-            if '.tex' in filename and filename != BOOK_MAIN:
-                latexFiles.append(path.relpath(path.join(dirpath, filename)))
+            if '.tex' in filename and filename != bookMain:
+                filePath = path.relpath(path.join(dirpath, filename))
+                if buildExclude and filePath in buildExclude:
+                    continue
+                latexFiles.append(filePath)
     return latexFiles
 
 def getVariableDeclaration(values, name):
@@ -183,7 +189,7 @@ def getRules(latexFiles, pdfFiles, htmlFiles, erbFiles):
     return makefile
 
 def main():
-    latexFiles = getLatexFiles()
+    latexFiles = getLatexFiles(BOOK_MAIN, BUILD_EXCLUDE)
     for unincludedFilename in verifyBookMain(BOOK_MAIN, latexFiles):
         if unincludedFilename not in BOOK_EXCLUDE:
             warn(f'{unincludedFilename} not in {BOOK_MAIN} and not excluded '

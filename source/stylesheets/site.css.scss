@@ -103,8 +103,6 @@ nav ul.button-header li a > div {
 
 nav p.nav-book-link-text {
     max-width: 30rem;
-    position: absolute;
-    bottom: 0;
 }
 
 nav a.nav-book-link {
@@ -222,6 +220,11 @@ footer {
     visibility: visible;
 }
 
+/* Don't scroll the main content when the menu is checked */
+.menu-wrap .toggler:checked ~ main {
+    overflow: hidden;
+}
+
 .menu-wrap .toggler:checked ~ .menu > div {
     transform: scale(1);
     transition-duration: var(--menu-speed);
@@ -230,6 +233,7 @@ footer {
 .menu-wrap .toggler:checked ~ .menu > div {
     opacity: 1;
     transition: opacity 0.4s ease 0.4s;
+    overflow-y: auto;
 }
 
 .menu-wrap .menu {
@@ -347,6 +351,7 @@ footer {
     .menu-wrap .menu {
         visibility: visible;
         width: var(--nav-width);
+        overflow-y: auto;
     }
 
     .menu-wrap .menu > div {

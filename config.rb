@@ -13,7 +13,6 @@ page '/*.xml', layout: false
 page '/*.json', layout: false
 page '/*.txt', layout: false
 
-activate :relative_assets
 activate :directory_indexes
 activate :minify_html
 

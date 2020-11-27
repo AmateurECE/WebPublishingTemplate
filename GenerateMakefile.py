@@ -7,7 +7,7 @@
 #
 # CREATED:          07/18/2020
 #
-# LAST EDITED:      08/05/2020
+# LAST EDITED:      11/27/2020
 ###
 
 from os import walk, path
@@ -61,7 +61,19 @@ clean:
 	rm -f `find source -name '*.html.erb' | grep -v 'index'`
 	rm -rf build/
 	rm -rf pdf/
-	git clean -fd
+	rm -f ./**/*.4ct
+	rm -f ./**/*.4tc
+	rm -f ./**/*.aux
+	rm -f ./**/*.css
+	rm -f ./**/*.dvi
+	rm -f ./**/*.html
+	rm -f ./**/*.idv
+	rm -f ./**/*.lg
+	rm -f ./**/*.log
+	rm -f ./**/*.out
+	rm -f ./**/*.tmp
+	rm -f ./**/*.xref
+	rm -rf ./_minted-*/
 	rm -f Makefile
 """
 

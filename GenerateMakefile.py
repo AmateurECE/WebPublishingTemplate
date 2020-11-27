@@ -73,6 +73,18 @@ clean:
 	rm -f ./**/*.out
 	rm -f ./**/*.tmp
 	rm -f ./**/*.xref
+	rm -f ./*.4ct
+	rm -f ./*.4tc
+	rm -f ./*.aux
+	rm -f ./*.css
+	rm -f ./*.dvi
+	rm -f ./*.html
+	rm -f ./*.idv
+	rm -f ./*.lg
+	rm -f ./*.log
+	rm -f ./*.out
+	rm -f ./*.tmp
+	rm -f ./*.xref
 	rm -rf ./_minted-*/
 	rm -f Makefile
 """
